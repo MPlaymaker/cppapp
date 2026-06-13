@@ -8,21 +8,18 @@ jobs:
   build-linux-container:
     runs-on: ubuntu-latest
     steps:
-      # 1. Pulls your main.cpp, dockerfile, etc., into the runner workspace
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      # 2. Set up Docker Buildx natively using the CLI
       - name: Set up Docker Buildx
         run: |
           docker buildx create --use --name local-builder
           docker buildx inspect --bootstrap
 
-      # 3. Build and Push using standard Docker CLI commands
       - name: Build and Push to Local Registry
         run: |
           docker buildx build \
-            --context . \
             --file ./dockerfile \
             --tag host.docker.internal:5001/hello:latest \
-            --push
+            --push \
+            .
