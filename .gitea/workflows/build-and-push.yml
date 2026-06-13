@@ -8,19 +8,21 @@ jobs:
   build-linux-container:
     runs-on: ubuntu-latest
     steps:
-      # 1. Checkout Code (Points to your local Gitea instance)
+      # 1. Pulls your main.cpp, dockerfile, etc., into the runner workspace
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      # 2. Set up Docker Buildx (Points to your local Gitea instance)
+      # 2. Set up Docker Buildx natively using the CLI
       - name: Set up Docker Buildx
-        uses: http://host.docker.internal:3000/playmaker/cppapp/docker/setup-buildx-action@main
+        run: |
+          docker buildx create --use --name local-builder
+          docker buildx inspect --bootstrap
 
-      # 3. Build and Push (Points to your local Gitea instance)
+      # 3. Build and Push using standard Docker CLI commands
       - name: Build and Push to Local Registry
-        uses: http://host.docker.internal:3000/playmaker/cppapp/docker/build-push-action@main
-        with:
-          context: .
-          file: ./Dockerfile
-          push: true
-          tags: host.docker.internal:5001/hello:latest
+        run: |
+          docker buildx build \
+            --context . \
+            --file ./dockerfile \
+            --tag host.docker.internal:5001/hello:latest \
+            --push
