@@ -1,3 +1,0 @@
-/Users/playmaker/projects/2026/pipelineproj/simple/cppapp/build/CMakeFiles/hello.dir
-/Users/playmaker/projects/2026/pipelineproj/simple/cppapp/build/CMakeFiles/edit_cache.dir
-/Users/playmaker/projects/2026/pipelineproj/simple/cppapp/build/CMakeFiles/rebuild_cache.dir
