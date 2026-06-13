@@ -10,7 +10,7 @@ jobs:
     steps:
       # 1. Checkout Code (Points to your local Gitea instance)
       - name: Checkout Code
-        uses: http://host.docker.internal:3000/playmaker/cppapp@main
+        uses: actions/checkout@v4
 
       # 2. Set up Docker Buildx (Points to your local Gitea instance)
       - name: Set up Docker Buildx
@@ -21,6 +21,6 @@ jobs:
         uses: http://host.docker.internal:3000/playmaker/cppapp/docker/build-push-action@main
         with:
           context: .
-          file: ./dockerfile
+          file: ./Dockerfile
           push: true
           tags: host.docker.internal:5001/hello:latest
