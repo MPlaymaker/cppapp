@@ -1,0 +1,23 @@
+name: Build and Push to Local Registry
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-linux-container:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: actions/setup-buildx-action@v2
+
+      - name: Build and Push to Local Registry
+        uses: actions/build-push-action@v4
+        with:
+          context: .
+          file: ./dockerfile
+          push: true
+          tags: host.docker.internal:5001/hello:latest
