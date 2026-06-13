@@ -9,6 +9,6 @@ RUN mkdir build && cd build && cmake .. && make
 #Step 2. Minimal runtime image
 FROM ubuntu:22.04
 WORKDIR /root/
-COPY --from=builder /cppapp/build/hello .
+COPY --from=builder /app/build/hello .
 CMD ["./hello"]
 
