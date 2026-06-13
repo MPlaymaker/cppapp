@@ -1,10 +1,11 @@
-#Objective: Create HelloWorld application, create linux container image and push it to proget like registry
+### Objective: Create HelloWorld application, create linux container image and push it to proget like registry
 
-Repository structure:
-cppapp
---.gitea
-----workflows
+Repository structure: \
+cppapp \
+--.gitea \
+----workflows \
 ------build-and-push.yml
+
 	name: Build and Push to Local Registry
 
 	on:
@@ -34,7 +35,7 @@ cppapp
 		.
 	
 
---dockerfile
+--dockerfile \
 	#step 1. Build the linux binary
 	FROM ubuntu:22.04 AS builder
 	RUN apt-get update && apt-get install -y cmake g++ make
@@ -49,25 +50,25 @@ cppapp
 	COPY --from=builder /app/build/hello .
 	CMD ["./hello"]
 
---CMakeLists.txt
+--CMakeLists.txt \
 	cmake_minimum_required(VERSION 3.10)
 	project(hello VERSION 1.0)
 	add_executable(hello main.cpp)
 
---main.cpp
-	#include <iostream>
+--main.cpp \
+	`#include <iostream>
 	int main()
 	{
 		std::cout << "Hello world" << std::endl;
-	}
+	}`
 
 
-##Steps:
+### Steps:
 
-(Check that following results into hello application being created)
-mkdir build
-cd build
-cmake ..
+(Check that following results into hello application being created) \
+mkdir build \
+cd build \
+cmake .. \
 cmake --build .
 
 1. Create above repository
