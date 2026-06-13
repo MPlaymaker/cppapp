@@ -13,12 +13,11 @@ jobs:
 
       - name: Set up Docker Buildx
         run: |
-          cat <<EOF > buildx-config.toml
-          [registry."host.docker.internal:5001"]
-            http = true
-            insecure = true
-          EOF
-          docker buildx create --use --name local-builder --config buildx-config.toml
+          # 1. Force remove any broken or cached local-builder setups
+          docker buildx rm local-builder || true
+          
+          # 2. Create a builder that uses the host's native docker daemon directly
+          docker buildx create --use --name local-builder --driver docker
           docker buildx inspect --bootstrap
 
       - name: Build and Push to Local Registry
