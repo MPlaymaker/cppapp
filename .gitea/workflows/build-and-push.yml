@@ -11,13 +11,11 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Set up Docker Buildx
+      # We skip creating a builder entirely and just use the default one
+      # But we run inspect to make sure it's active and see its settings
+      - name: Inspect Docker Buildx
         run: |
-          # 1. Force remove any broken or cached local-builder setups
-          docker buildx rm local-builder || true
-          
-          # 2. Create a builder that uses the host's native docker daemon directly
-          docker buildx create --use --name local-builder --driver docker
+          docker buildx use default
           docker buildx inspect --bootstrap
 
       - name: Build and Push to Local Registry
